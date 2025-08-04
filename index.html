@@ -25,7 +25,25 @@
         0 0 80px #ff0080,
         0 0 90px #ff0080;
       animation: flicker 2s infinite alternate;
+      margin-bottom: 20px;
+    }
+
+    .bffs {
+      display: flex;
+      justify-content: center;
+      gap: 100px;
       margin-bottom: 50px;
+    }
+
+    .bff {
+      font-size: 36px;
+      color: #00ffff;
+      text-shadow:
+        0 0 5px #00ffff,
+        0 0 15px #00ffff,
+        0 0 30px #00ccff,
+        0 0 40px #00ccff;
+      animation: partyPulse 1.5s infinite ease-in-out;
     }
 
     @keyframes flicker {
@@ -39,11 +57,16 @@
           0 0 80px #ff0080,
           0 0 90px #ff0080;
       }
-
       20%, 24%, 55% {
         opacity: 0.4;
         text-shadow: none;
       }
+    }
+
+    @keyframes partyPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
     }
 
     img {
@@ -56,6 +79,12 @@
 </head>
 <body>
   <h1>BENSARLLOOHHAA</h1>
+
+  <div class="bffs">
+    <div class="bff">🎉 BFF #1 🎊</div>
+    <div class="bff">🎊 BFF #2 🎉</div>
+  </div>
+
   <img src="Screenshot 2025-08-04 at 20.56.21.png" alt="Bensarlloha Screenshot" />
 </body>
 </html>
