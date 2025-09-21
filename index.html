@@ -1,115 +1,194 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BENSARLLOOHHAA</title>
-  <style>
-    body {
-      background: #111;
-      color: #fff;
-      text-align: center;
-      margin: 0;
-      padding: 50px;
-      font-family: 'Arial', sans-serif;
-    }
-
-    h1 {
-      font-size: 80px;
-      color: #ff00cc;
-      text-shadow:
-        0 0 5px #ff00cc,
-        0 0 10px #ff00cc,
-        0 0 20px #ff00cc,
-        0 0 40px #ff0080,
-        0 0 80px #ff0080;
-      animation: flicker 2s infinite alternate;
-      margin-bottom: 20px;
-    }
-
-    .bffs {
-      display: flex;
-      justify-content: center;
-      gap: 100px;
-      margin-bottom: 40px;
-    }
-
-    .bff {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .bff-title {
-      font-size: 36px;
-      color: #00ffff;
-      text-shadow:
-        0 0 5px #00ffff,
-        0 0 15px #00ffff,
-        0 0 30px #00ccff,
-        0 0 40px #00ccff;
-      animation: partyPulse 1.5s infinite ease-in-out;
-    }
-
-    .girl {
-      font-size: 60px;
-      margin-top: 15px;
-      text-shadow:
-        0 0 8px #ff66cc,
-        0 0 16px #ff66cc,
-        0 0 24px #ff99cc;
-      animation: glowGirl 2s infinite alternate;
-    }
-
-    img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(255, 0, 204, 0.4);
-    }
-
-    @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        opacity: 1;
-        text-shadow:
-          0 0 5px #ff00cc,
-          0 0 10px #ff00cc,
-          0 0 20px #ff00cc,
-          0 0 40px #ff0080,
-          0 0 80px #ff0080;
-      }
-      20%, 24%, 55% {
-        opacity: 0.4;
-        text-shadow: none;
-      }
-    }
-
-    @keyframes partyPulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-
-    @keyframes glowGirl {
-      0% { transform: translateY(0px); opacity: 1; }
-      100% { transform: translateY(-5px); opacity: 0.9; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>קורות חיים | ערן אביב - מנהל השקעות</title>
+    <style>
+        :root {
+            --main-blue: #3498db;
+            --dark-blue: #2c3e50;
+            --light-gray: #ecf0f1;
+            --soft-gray: #7f8c8d;
+            --bg: #f4f8fb;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            direction: rtl;
+            line-height: 1.7;
+            color: #2c3e50;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 860px;
+            margin: auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            padding: 40px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 2.8em;
+            color: var(--dark-blue);
+            margin: 0;
+        }
+        .header p {
+            font-size: 1.2em;
+            color: var(--soft-gray);
+            margin: 5px 0 15px;
+        }
+        .contact-info {
+            font-size: 0.95em;
+            color: #555;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            font-size: 1.5em;
+            color: var(--dark-blue);
+            border-bottom: 2px solid var(--main-blue);
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+        }
+        .job-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 5px;
+        }
+        .company-dates {
+            font-style: italic;
+            color: var(--soft-gray);
+            margin-bottom: 12px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            position: relative;
+            padding-right: 24px;
+            margin-bottom: 12px;
+        }
+        li::before {
+            content: "\2022";
+            position: absolute;
+            right: 0;
+            color: var(--main-blue);
+            font-size: 1.3em;
+            line-height: 1;
+        }
+        .highlight {
+            color: var(--main-blue);
+            font-weight: bold;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 10px;
+            }
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>BENSARLLOOHHAA</h1>
-
-  <div class="bffs">
-    <div class="bff">
-      <div class="bff-title">🎉 BFF #1 🎊</div>
-      <div class="girl">💃👗💄✨</div>
+<div class="container">
+    <div class="header">
+        <h1>ערן אביב</h1>
+        <p>מנהל השקעות מניות | מומחה שווקים גלובליים וניהול הון מוסדי</p>
+        <div class="contact-info">
+            <span>הגפן 13, רמת גן</span> | <span>054-4999020</span> | <a href="mailto:AvivEran@gmail.com">AvivEran@gmail.com</a>
+        </div>
     </div>
-    <div class="bff">
-      <div class="bff-title">🎊 BFF #2 🎉</div>
-      <div class="girl">👑👠👜🎀</div>
-    </div>
-  </div>
 
-  <img src="Screenshot 2025-08-04 at 20.56.21.png" alt="Bensarlloha Screenshot" />
+```
+<div class="section">
+    <h2 class="section-title">תקציר מקצועי</h2>
+    <p>מנהל השקעות בכיר עם <span class="highlight">מעל 12 שנות ניסיון</span> בניהול השקעות מניות עבור גופים מוסדיים מובילים בישראל.</p>
+    <p>התמחות עמוקה בניהול תיקים בשווקים גלובליים בהיקפים של <span class="highlight">מיליארדי שקלים</span>, בניתוח אנליטי, אסטרטגיית השקעה, ובניית מודלים פיננסיים מתקדמים.</p>
+    <ul>
+        <li>הובלת עסקאות הנפקה וביצוע אנליזה פיננסית מעמיקה של חברות ציבוריות ופרטיות.</li>
+        <li>פיתוח קשרים עם ברוקרים, אנליסטים וגורמים בכירים בשוק ההון.</li>
+        <li>הצגת הזדמנויות השקעה לוועדות בכירות תוך ביסוס החלטות על מודלים ודאטה.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2 class="section-title">ניסיון מקצועי</h2>
+
+    <div>
+        <h3 class="job-title">מנהל השקעות מניות חו"ל</h3>
+        <p class="company-dates">הכשרה חברה לביטוח | 2018–2022</p>
+        <ul>
+            <li>ניהול תיקים בשווקים גלובליים בהיקף של כ-4 מיליארד ₪ תוך עמידה במדיניות השקעה ורגולציה.</li>
+            <li>הובלת תחום הנפקות IPO כולל שיחות מודל, מצגות והצגת עמדות.</li>
+            <li>עבודה שוטפת עם אנליסטים, בתי השקעות וברוקרים בינלאומיים.</li>
+        </ul>
+    </div>
+
+    <div>
+        <h3 class="job-title">מגוון תפקידי השקעות</h3>
+        <p class="company-dates">מיטב דש בית השקעות | 2010–2017</p>
+        <ul>
+            <li><span class="highlight">מנהל השקעות:</span> ניהול קופות גמל מפעליות, יישום מדיניות השקעה, ביצוע מסחר שוטף, ותיאום בקרות ועמידה ביעדי תשואה.</li>
+            <li><span class="highlight">ניהול לקוחות:</span> ניתוח תיקי לקוחות פרטיים, בניית פתרונות מותאמים אישית והשתתפות בוועדות השקעה.</li>
+            <li><span class="highlight">סוחר מניות:</span> מסחר יומיומי במגוון פלטפורמות מול ברוקרים, ביצוע עסקאות בזמן אמת, ניתוח תנודתיות השוק והעברת פקודות מסחר מדויקות.</li>
+        </ul>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title">השכלה ורישיונות</h2>
+    <ul>
+        <li><strong>B.A. בכלכלה וניהול</strong> | המכללה האקדמית תל אביב-יפו</li>
+        <li><strong>רישיון לניהול תיקים</strong> | הרשות לניירות ערך</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2 class="section-title">כישורים מקצועיים</h2>
+    <ul>
+        <li>ניתוח שווקים גלובליים והערכת שווי חברות.</li>
+        <li>בניית מודלים פיננסיים, עמידה ב-KPI והובלת תיקים.</li>
+        <li>ידע נרחב ברגולציה מוסדית, ניהול סיכונים וניהול תיקים מתקדם.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2 class="section-title">כישורים אישיים</h2>
+    <ul>
+        <li>יכולת ניתוח אסטרטגי וחשיבה ביקורתית.</li>
+        <li>דייקנות, עמידה בלחצים, וניהול משא ומתן אפקטיבי.</li>
+        <li>מיומנויות הצגה, תקשורת בין-אישית מצוינת, חתירה למגע ומנהיגות.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2 class="section-title">כלים טכנולוגיים</h2>
+    <ul>
+        <li>שליטה מלאה: Microsoft Office, כולל Excel ברמה מתקדמת.</li>
+        <li>מערכות מקצועיות: Bloomberg, דן-אל, מערכות מסחר בנקאיות.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2 class="section-title">שירות צבאי</h2>
+    <ul>
+        <li><strong>לוחם ומפקד:</strong> סיירת צנחנים.</li>
+        <li><strong>תפקידי מילואים:</strong> ביצוע מבצעים ייחודיים, תפקידי פיקוד וקבלת החלטות תחת לחץ.</li>
+    </ul>
+</div>
+```
+
+</div>
 </body>
 </html>
