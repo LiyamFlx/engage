@@ -1,194 +1,816 @@
 <!DOCTYPE html>
-
-<html lang="he" dir="rtl">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>קורות חיים | ערן אביב - מנהל השקעות</title>
-    <style>
-        :root {
-            --main-blue: #3498db;
-            --dark-blue: #2c3e50;
-            --light-gray: #ecf0f1;
-            --soft-gray: #7f8c8d;
-            --bg: #f4f8fb;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            direction: rtl;
-            line-height: 1.7;
-            color: #2c3e50;
-            background-color: var(--bg);
-            margin: 0;
-            padding: 40px 20px;
-        }
-        .container {
-            max-width: 860px;
-            margin: auto;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-            padding: 40px;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .header h1 {
-            font-size: 2.8em;
-            color: var(--dark-blue);
-            margin: 0;
-        }
-        .header p {
-            font-size: 1.2em;
-            color: var(--soft-gray);
-            margin: 5px 0 15px;
-        }
-        .contact-info {
-            font-size: 0.95em;
-            color: #555;
-        }
-        .section {
-            margin-bottom: 40px;
-        }
-        .section-title {
-            font-size: 1.5em;
-            color: var(--dark-blue);
-            border-bottom: 2px solid var(--main-blue);
-            padding-bottom: 5px;
-            margin-bottom: 20px;
-        }
-        .job-title {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #34495e;
-            margin-bottom: 5px;
-        }
-        .company-dates {
-            font-style: italic;
-            color: var(--soft-gray);
-            margin-bottom: 12px;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            position: relative;
-            padding-right: 24px;
-            margin-bottom: 12px;
-        }
-        li::before {
-            content: "\2022";
-            position: absolute;
-            right: 0;
-            color: var(--main-blue);
-            font-size: 1.3em;
-            line-height: 1;
-        }
-        .highlight {
-            color: var(--main-blue);
-            font-weight: bold;
-        }
-        @media (max-width: 600px) {
-            body {
-                padding: 20px 10px;
-            }
-            .container {
-                padding: 20px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <title>ENGAGESENSE | Relational Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --green: #00FF41;
+      --green-dim: rgba(0, 255, 65, 0.1);
+      --pink: #FF00FF;
+      --cyan: #00FFFF;
+      --bg: #050505;
+      --scanline: rgba(18, 16, 16, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--green);
+      font-family: 'VT323', monospace;
+      font-size: 22px;
+      line-height: 1.4;
+      overflow: hidden;
+    }
+
+    /* --- CRT & ATMOSPHERE EFFECTS --- */
+    .crt-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      background: 
+        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+      background-size: 100% 2px, 3px 100%;
+      animation: scanlines 10s linear infinite;
+    }
+
+    .crt-overlay::before {
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%);
+    }
+
+    .crt-overlay::after {
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: rgba(0, 255, 65, 0.02);
+      opacity: 0;
+      animation: flicker 0.15s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes scanlines { from { background-position: 0 0, 0 0; } to { background-position: 0 100%, 0 0; } }
+    @keyframes flicker { 0% { opacity: 0.02; } 50% { opacity: 0.05; } 100% { opacity: 0.02; } }
+
+    /* --- LAYOUT --- */
+    .app {
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 24px 100px;
+      overflow-y: auto;
+      scrollbar-width: none;
+      width: 100%;
+    }
+    .main::-webkit-scrollbar { display: none; }
+
+    .frame {
+      width: 100%;
+      max-width: 850px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      position: relative;
+    }
+
+    .center-content {
+      min-height: 50vh;
+      justify-content: center;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* --- TYPOGRAPHY --- */
+    .label {
+      font-size: 14px;
+      color: var(--green);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      opacity: 0.8;
+      border-left: 3px solid var(--pink);
+      padding-left: 12px;
+    }
+
+    .headline {
+      font-size: clamp(32px, 4vw, 48px);
+      line-height: 1.1;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+    }
+    
+    /* REFINED CURSOR: Thin blinking underscore */
+    .typewriter-cursor::after {
+      content: '_';
+      display: inline-block;
+      color: var(--pink);
+      margin-left: 2px;
+      animation: blink 1s step-end infinite;
+      font-weight: bold;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .sub {
+      font-size: clamp(20px, 3vw, 24px);
+      color: var(--green);
+      margin-bottom: 24px;
+      line-height: 1.3;
+      opacity: 0.9;
+    }
+
+    .text {
+      font-size: clamp(18px, 2.5vw, 22px);
+      line-height: 1.5;
+    }
+
+    .pink { color: var(--pink); text-shadow: 0 0 10px rgba(255,0,255,0.6); }
+    .cyan { color: var(--cyan); text-shadow: 0 0 10px rgba(0,255,255,0.6); }
+    .white { color: #FFF; text-shadow: 0 0 10px rgba(255,255,255,0.4); }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, var(--green) 0%, transparent 100%);
+      margin: 20px 0;
+      position: relative;
+    }
+    .divider::after {
+      content: '';
+      position: absolute;
+      right: 0; top: -2px;
+      width: 5px; height: 5px;
+      background: var(--green);
+    }
+
+    /* --- COMPONENTS --- */
+    .list-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      font-size: clamp(18px, 2.5vw, 22px);
+    }
+    .list-item::before {
+      content: ">";
+      color: var(--pink);
+      margin-right: 12px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+    
+    /* Flow Chart */
+    .flow-chart {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin: 20px 0;
+      width: 100%;
+    }
+    .flow-node {
+      border: 1px solid var(--green);
+      padding: 12px 24px;
+      text-align: center;
+      width: 100%;
+      max-width: 600px;
+      background: rgba(0,20,0,0.5);
+      position: relative;
+      box-shadow: 0 0 10px rgba(0,255,65,0.1);
+    }
+    .flow-title { color: var(--white); font-weight: bold; margin-bottom: 4px; letter-spacing: 1px; }
+    .flow-sub { color: var(--green); opacity: 0.8; font-size: 16px; }
+    .flow-arrow-down { color: var(--green); font-size: 20px; line-height: 1; }
+
+    /* Visual Layer (Slide 4) */
+    .layer-container {
+      border: 2px solid var(--pink);
+      padding: 24px;
+      background: rgba(255, 0, 255, 0.05);
+      margin-top: 10px;
+      position: relative;
+      box-shadow: 0 0 15px rgba(255,0,255,0.1);
+    }
+    .layer-label {
+      position: absolute;
+      top: -14px; left: 20px;
+      background: #000;
+      padding: 0 10px;
+      color: var(--pink);
+      font-weight: bold;
+      letter-spacing: 2px;
+      border-left: 2px solid var(--pink);
+      border-right: 2px solid var(--pink);
+    }
+    .missing-layer-alert {
+      margin-top: 24px;
+      padding: 16px;
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      text-align: center;
+      background: rgba(0, 255, 255, 0.05);
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 0 15px rgba(0,255,255,0.1);
+    }
+
+    /* Stack Diagram */
+    .stack { display: flex; flex-direction: column; align-items: center; margin: 20px 0; gap: 4px; }
+    .stack-box {
+      width: 100%; max-width: 500px; padding: 12px; text-align: center;
+      border: 1px solid var(--green); letter-spacing: 1px;
+      background: rgba(0,0,0,0.5); position: relative; font-size: 18px;
+    }
+    .stack-box.core {
+      border: 2px solid var(--pink); color: var(--pink);
+      background: rgba(255,0,255,0.05); padding: 18px;
+      box-shadow: 0 0 20px rgba(255,0,255,0.15); animation: core-pulse 3s infinite;
+    }
+    @keyframes core-pulse { 0% { box-shadow: 0 0 15px rgba(255,0,255,0.15); } 50% { box-shadow: 0 0 30px rgba(255,0,255,0.3); } 100% { box-shadow: 0 0 15px rgba(255,0,255,0.15); } }
+    .stack-label { font-size: 12px; opacity: 0.7; margin-bottom: 4px; text-transform: uppercase; text-align: left; width: 100%; max-width: 500px;}
+    .flow-line { height: 12px; width: 2px; background: rgba(0,255,0,0.2); position: relative; overflow: hidden; }
+
+    /* Summary Cards */
+    .summary-card {
+      border: 1px solid var(--cyan); background: rgba(0, 255, 255, 0.05); padding: 20px; margin-bottom: 16px;
+      transition: transform 0.2s;
+    }
+    .summary-card:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,255,255,0.1); }
+    .summary-title { color: var(--cyan); font-weight: bold; font-size: 20px; margin-bottom: 8px; letter-spacing: 2px; }
+    .summary-text { font-size: 22px; line-height: 1.3; color: #fff; }
+
+    /* Sim UI */
+    .sim-interface { width: 100%; max-width: 500px; margin-top: 20px; border-top: 1px dashed var(--green); padding-top: 16px; }
+    .sim-input-group { display: flex; gap: 10px; }
+    .sim-input { flex: 1; background: rgba(0,255,0,0.05); border: 1px solid var(--green); color: var(--green); font-family: inherit; padding: 10px; font-size: 18px; }
+    .sim-input:focus { outline: none; border-color: var(--pink); box-shadow: 0 0 10px rgba(255,0,255,0.2); }
+
+    /* Chat UI */
+    .chat-box { background: rgba(0,20,0,0.8); border: 1px solid var(--green); height: 180px; overflow-y: auto; padding: 10px; margin-bottom: 10px; font-size: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .chat-msg { padding: 8px; border-radius: 4px; max-width: 85%; }
+    .chat-msg.user { align-self: flex-end; background: rgba(0,255,0,0.2); color: var(--green); text-align: right; }
+    .chat-msg.ai { align-self: flex-start; background: rgba(255,0,255,0.2); color: var(--pink); border: 1px solid var(--pink); }
+
+    /* Columns */
+    .cols { display: flex; gap: 32px; margin-top: 16px; width: 100%; }
+    .col { flex: 1; }
+    .col-head { border-bottom: 1px solid var(--green); margin-bottom: 12px; padding-bottom: 4px; letter-spacing: 2px; }
+
+    #end-buttons { display: flex; flex-direction: row; gap: 24px; justify-content: center; margin-top: 48px; flex-wrap: wrap; }
+
+    /* Nav */
+    .progress-bar { position: fixed; top: 0; left: 0; right: 0; height: 4px; background: rgba(0,255,0,0.1); z-index: 100; }
+    .progress-fill { height: 100%; background: var(--green); box-shadow: 0 0 10px var(--green); transition: width 0.4s ease; }
+    .counter { position: fixed; top: 20px; right: 20px; font-size: 18px; z-index: 100; background: #000; padding: 4px 8px; border: 1px solid var(--green); }
+    .nav { position: fixed; bottom: 0; left: 0; right: 0; display: flex; justify-content: space-between; padding: 20px 24px calc(20px + env(safe-area-inset-bottom)); background: linear-gradient(to top, #000 90%, transparent); z-index: 100; }
+    
+    .btn { background: #000; border: 1px solid var(--green); color: var(--green); font-family: 'VT323', monospace; font-size: 20px; padding: 12px 24px; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+    .btn:hover:not(:disabled) { background: var(--green); color: #000; box-shadow: 0 0 20px rgba(0,255,0,0.4); }
+    .btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .btn.primary { background: var(--green); color: #000; font-weight: bold; border-color: var(--green); }
+    .btn.secondary { background: transparent; color: var(--pink); border: 2px solid var(--pink); }
+    .btn.secondary:hover { background: var(--pink); color: #000; box-shadow: 0 0 20px rgba(255,0,255,0.4); }
+    .btn.sparkle { border-color: var(--cyan); color: var(--cyan); font-size: 16px; padding: 8px 16px; margin-top: 10px; }
+    .btn.sparkle:hover { background: var(--cyan); color: #000; box-shadow: 0 0 15px rgba(0,255,255,0.5); }
+
+    .slide-enter { animation: glitch-anim 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+    @keyframes glitch-anim { 0% { opacity: 0; transform: translateX(-20px); clip-path: inset(50% 0 30% 0); } 100% { transform: translateX(0); clip-path: inset(0 0 0 0); } }
+
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .modal.open { opacity: 1; pointer-events: auto; }
+    .modal-box { background: #000; border: 1px solid var(--pink); padding: 32px; width: 90%; max-width: 480px; position: relative; box-shadow: 0 0 40px rgba(255,0,255,0.2); }
+
+    @media (max-width: 600px) {
+      .main { padding-top: 40px; }
+      .cols { flex-direction: column; gap: 20px; }
+      .nav { padding: 12px; }
+      .btn { font-size: 16px; padding: 10px 16px; }
+      .hero-tag { font-size: 12px; }
+      #end-buttons { flex-direction: column; width: 100%; gap: 16px; }
+      #end-buttons .btn { width: 100%; }
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <h1>ערן אביב</h1>
-        <p>מנהל השקעות מניות | מומחה שווקים גלובליים וניהול הון מוסדי</p>
-        <div class="contact-info">
-            <span>הגפן 13, רמת גן</span> | <span>054-4999020</span> | <a href="mailto:AvivEran@gmail.com">AvivEran@gmail.com</a>
-        </div>
+  <div class="crt-overlay"></div>
+  <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+  <div class="counter"><span id="cur">01</span>/<span id="tot">15</span></div>
+
+  <div class="app">
+    <main class="main">
+      <div class="frame">
+        <div id="content"></div>
+      </div>
+    </main>
+    
+    <nav class="nav">
+      <button class="btn" id="prev" disabled>&lt; PREV</button>
+      <button class="btn primary" id="next">NEXT &gt;</button>
+    </nav>
+  </div>
+
+  <!-- Data Room Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <button id="closeModal" style="position:absolute; top:12px; right:16px; background:none; border:none; color:var(--green); font-size:28px; cursor:pointer;">×</button>
+      <div style="text-align:center; margin-bottom:24px;">
+        <div style="font-size:24px; color:var(--pink); margin-bottom:8px;">ACCESS DATA ROOM</div>
+        <div style="font-size:16px; opacity:0.7;">Secure access for authorized investors</div>
+      </div>
+      <form id="contactForm">
+        <input type="text" name="name" placeholder="NAME" required>
+        <input type="email" name="email" placeholder="EMAIL" required>
+        <input type="text" name="firm" placeholder="FIRM / FUND">
+        <button type="submit" class="btn primary" style="width:100%; margin-top:8px;">REQUEST ACCESS →</button>
+      </form>
     </div>
+  </div>
 
-```
-<div class="section">
-    <h2 class="section-title">תקציר מקצועי</h2>
-    <p>מנהל השקעות בכיר עם <span class="highlight">מעל 12 שנות ניסיון</span> בניהול השקעות מניות עבור גופים מוסדיים מובילים בישראל.</p>
-    <p>התמחות עמוקה בניהול תיקים בשווקים גלובליים בהיקפים של <span class="highlight">מיליארדי שקלים</span>, בניתוח אנליטי, אסטרטגיית השקעה, ובניית מודלים פיננסיים מתקדמים.</p>
-    <ul>
-        <li>הובלת עסקאות הנפקה וביצוע אנליזה פיננסית מעמיקה של חברות ציבוריות ופרטיות.</li>
-        <li>פיתוח קשרים עם ברוקרים, אנליסטים וגורמים בכירים בשוק ההון.</li>
-        <li>הצגת הזדמנויות השקעה לוועדות בכירות תוך ביסוס החלטות על מודלים ודאטה.</li>
-    </ul>
-</div>
+  <script>
+    const apiKey = ""; 
+    const MOCK_RESPONSES = {
+      default: "EngageSense provides the relational intelligence layer for embodied AI. We enable machines to understand emotional context.",
+      financial: "We are raising a $2.5M Seed round to provide 18-24 months of runway. Burn is projected at $110k/mo, focusing 60% on engineering.",
+      model: "Our B2B model relies on OEM SDK licensing and per-unit runtime fees. It's high-margin, embedded revenue.",
+      tech: "Our architecture consists of 5 layers: Signal Acquisition, Affective Normalization, Relational Models (RIMs), Adaptive Interaction (AIE), and Safety Control.",
+      sim_close: JSON.stringify({ phys: "PROXIMITY_ALERT", emot: "DISCOMFORT", action: "RETREAT_SLOWLY" }),
+      sim_happy: JSON.stringify({ phys: "RELAXED_POSTURE", emot: "JOY/TRUST", action: "MIRROR_AFFECT" }),
+      vision_remix: "\"Silicon souls for smart machines.\"",
+      narrative_vc: "Invest in the emotional glue of the robotics revolution. Without us, the $100B embodied AI market stalls at the uncanny valley. We are the Intel Inside for empathy.",
+      narrative_eng: "Robotics control loops fail at social pacing. We provide the missing sub-millisecond affective latency layer required for safe human-robot proximity."
+    };
 
-<div class="section">
-    <h2 class="section-title">ניסיון מקצועי</h2>
+    const SLIDES = [
+      {
+        id: '1',
+        class: 'center-content',
+        content: `
+          <div class="hero-tag">ENGAGESENSE</div>
+          <div class="hero-title typewriter" data-text="RELATIONAL INTELLIGENCE"></div>
+          <div class="sub">Infrastructure for Robotics & Embodied AI.</div>
+          <div class="divider" style="max-width:300px; margin:20px auto;"></div>
+          <div class="text pink" id="hero-vision">"Emotional intelligence for machines."</div>
+          <button class="btn sparkle" onclick="remixVision()">✨ REMIX VISION</button>
+        `
+      },
+      {
+        id: '2',
+        content: `
+          <div class="label">THE PROBLEM</div>
+          <div class="headline">ROBOTS ARE ENTERING <span class="white">HUMAN SPACES</span></div>
+          <div class="text" style="margin-bottom:16px;">They can <span class="white">see</span>. They can <span class="white">speak</span>. They can <span class="white">move</span>.</div>
+          <div class="divider"></div>
+          <div class="text" style="margin-bottom:16px;">But they cannot understand:</div>
+          <div class="list-item">Comfort vs Discomfort</div>
+          <div class="list-item">Trust vs Resistance</div>
+          <div class="list-item">Emotional Boundaries</div>
+          
+          <div class="text pink" style="margin-top:24px; border:1px dashed var(--pink); padding:16px; text-align:center;">
+            This is now a safety, adoption, and regulatory problem.
+          </div>
+        `
+      },
+      {
+        id: '3',
+        content: `
+          <div class="label">WHY NOW</div>
+          <div class="headline">PERCEPTION IS SOLVED. <span class="pink">RELATIONSHIP IS NOT.</span></div>
+          <div class="list-item"><span class="white">Humanoid robots</span> entering market</div>
+          <div class="list-item"><span class="white">Autonomous vehicles</span> in human cabins</div>
+          <div class="list-item"><span class="white">AI agents</span> becoming embodied</div>
+          <div class="list-item"><span class="white">Regulators</span> demanding safety-aware systems</div>
+        `
+      },
+      {
+        id: '4',
+        content: `
+          <div class="label">THE INSIGHT</div>
+          <div class="headline">EMOTIONAL <span class="pink">COGNITION</span> LAYER</div>
+          <div class="text" style="margin-bottom:16px;">
+            Every robot interacting with humans requires a dedicated layer:
+          </div>
+          
+          <div class="layer-container">
+            <div class="layer-label">EMOTIONAL LAYER</div>
+            <div class="cols" style="margin-top:0;">
+              <div class="col">
+                <div class="list-item">Sense affect</div>
+                <div class="list-item">Remember relationships</div>
+              </div>
+              <div class="col">
+                <div class="list-item">Predict reactions</div>
+                <div class="list-item">Adapt behavior safely</div>
+              </div>
+            </div>
+          </div>
 
-    <div>
-        <h3 class="job-title">מנהל השקעות מניות חו"ל</h3>
-        <p class="company-dates">הכשרה חברה לביטוח | 2018–2022</p>
-        <ul>
-            <li>ניהול תיקים בשווקים גלובליים בהיקף של כ-4 מיליארד ₪ תוך עמידה במדיניות השקעה ורגולציה.</li>
-            <li>הובלת תחום הנפקות IPO כולל שיחות מודל, מצגות והצגת עמדות.</li>
-            <li>עבודה שוטפת עם אנליסטים, בתי השקעות וברוקרים בינלאומיים.</li>
-        </ul>
-    </div>
+          <div class="missing-layer-alert">
+            ERROR: NO HORIZONTAL SOLUTION EXISTS.<br>
+            <span style="color:#fff; font-size:18px;">EngageSense builds this infrastructure.</span>
+          </div>
+        `
+      },
+      {
+        id: '5',
+        content: `
+          <div class="label">THE SOLUTION</div>
+          <div class="headline">ENGAGESENSE R.I.E.</div>
+          <div class="sub">Relational Intelligence Engine</div>
+          <div class="text" style="margin-bottom:20px;">
+            A horizontal infrastructure layer enabling robots to:
+          </div>
+          <div class="list-item"><span class="white">Understand</span> human emotional states</div>
+          <div class="list-item"><span class="white">Model</span> relational dynamics over time</div>
+          <div class="list-item"><span class="white">Adapt</span> interaction behavior in real time</div>
+          <div class="text pink" style="margin-top:20px;">> This is infrastructure, not an app.</div>
+        `
+      },
+      {
+        id: '6',
+        content: `
+          <div class="label">SYSTEM ARCHITECTURE</div>
+          <div class="headline">6-STAGE <span class="white">PIPELINE</span></div>
+          <div class="list-item">1. Multimodal Signal Acquisition</div>
+          <div class="list-item">2. Affective Normalization & Features</div>
+          <div class="list-item"><span class="pink">3. Relational Intelligence Models (RIMs)</span></div>
+          <div class="list-item"><span class="pink">4. Adaptive Interaction Engine (AIE)</span></div>
+          <div class="list-item">5. Safety & Alignment Control Plane</div>
+          <div class="list-item">6. OEM SDK & Runtime (Edge + Cloud)</div>
+        `
+      },
+      {
+        id: '7',
+        content: `
+          <div class="label">FULL ARCHITECTURE</div>
+          <div class="headline">DATA FLOW</div>
+          <div class="flow-chart">
+            <div class="flow-node">
+              <div class="flow-title">HUMAN-MACHINE INTERACTION</div>
+              <div class="flow-sub">Robots, Vehicles, Avatars</div>
+            </div>
+            <div class="flow-arrow-down">↓</div>
+            <div class="flow-node">
+              <div class="flow-title">MULTIMODAL SIGNAL ACQUISITION</div>
+              <div class="flow-sub">Voice • Face • Posture • Context</div>
+            </div>
+            <div class="flow-arrow-down">↓</div>
+            <div class="flow-node" style="border-color:var(--pink);">
+              <div class="flow-title pink">RELATIONAL INTELLIGENCE MODELS</div>
+              <div class="flow-sub pink">Emotion • Trust • Comfort • Memory</div>
+            </div>
+            <div class="flow-arrow-down">↓</div>
+            <div class="flow-node">
+              <div class="flow-title">SAFETY & CONTROL PLANE</div>
+              <div class="flow-sub">Thresholds • Bias • Compliance</div>
+            </div>
+            <div class="flow-arrow-down">↓</div>
+            <div class="flow-node">
+              <div class="flow-title">OEM SDK & RUNTIME</div>
+              <div class="flow-sub">ROS2 • Automotive APIs</div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: '8',
+        content: `
+          <div class="label">ONE PAGER</div>
+          <div class="headline">ENGAGESENSE <span class="cyan">SUMMARY</span></div>
+          <div class="cols">
+            <div class="col">
+              <div class="summary-card">
+                <div class="summary-title">PURPOSE</div>
+                <div class="summary-text">Emotional machine understanding.</div>
+              </div>
+              <div class="summary-card">
+                <div class="summary-title">OUTCOME</div>
+                <div class="summary-text">Safe human-robot interaction.</div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="summary-card" style="height:100%; min-height:160px;">
+                <div class="summary-title">CAPABILITIES</div>
+                <div class="list-item" style="margin-bottom:8px;"><span class="cyan">></span> Emotional Inference</div>
+                <div class="list-item" style="margin-bottom:8px;"><span class="cyan">></span> Relational Memory</div>
+                <div class="list-item"><span class="cyan">></span> Safety Execution</div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: '9',
+        content: `
+          <div class="label">THE STACK</div>
+          <div class="headline">VISUAL <span class="pink">SIMULATION</span></div>
+          <div class="stack">
+            <div class="stack-label">APPLICATION LAYER</div>
+            <div class="stack-box">ROBOT / VEHICLE / AGENT</div>
+            <div class="flow-line"></div>
+            <div class="stack-label">COGNITION LAYER</div>
+            <div class="stack-box core" id="kernel-box">RELATIONAL INTELLIGENCE MODELS</div>
+            <div class="flow-line"></div>
+            <div class="stack-label">SIGNAL LAYER</div>
+            <div class="stack-box">AFFECTIVE PROCESSING</div>
+          </div>
+          <div class="sim-interface">
+            <div style="font-size:14px; margin-bottom:8px; opacity:0.8;">LIVE KERNEL SIMULATION</div>
+            <div class="sim-input-group">
+              <input type="text" class="sim-input" id="sim-input" placeholder="e.g. 'You are standing too close'">
+              <button class="btn primary" onclick="runKernelSim()">RUN</button>
+            </div>
+            <div id="robot-box" style="margin-top:8px; color:var(--pink); min-height:20px;"></div>
+          </div>
+        `
+      },
+      {
+        id: '10',
+        content: `
+          <div class="label">ELEVATOR PITCH</div>
+          <div class="headline">THE MISSING <span class="pink">LAYER</span></div>
+          <div class="text" style="font-size:24px; line-height:1.4;">
+            EngageSense provides the relational intelligence layer required for robots and embodied AI to understand humans emotionally.
+          </div>
+          <div class="divider"></div>
+          <div class="text">
+            We license emotional cognition models and adaptive interaction engines to OEMs, delivered via SDK and runtime infrastructure.
+          </div>
+        `
+      },
+      {
+        id: '11',
+        content: `
+          <div class="label">FOUNDER STORY</div>
+          <div class="headline">INTELLIGENT BUT <span class="pink">BLIND</span></div>
+          <div class="text">
+            "I worked at the intersection of AI systems and human behavior. As machines became more capable, one gap became obvious:"
+          </div>
+          <div class="text white" style="margin: 20px 0; font-size:26px;">
+            They were intelligent, but socially blind.
+          </div>
+          <div class="text">
+            EngageSense exists to close that gap — the relationship layer machines need to operate safely around people.
+          </div>
+        `
+      },
+      {
+        id: '12',
+        content: `
+          <div class="label">BUSINESS MODEL</div>
+          <div class="headline">B2B <span class="pink">INFRASTRUCTURE</span></div>
+          <div class="sub">High-margin, embedded revenue.</div>
+          <div class="cols">
+            <div class="col">
+              <div class="list-item">OEM SDK licensing</div>
+              <div class="list-item">Per-device / fleet runtime fees</div>
+              <div class="list-item">Cloud inference usage</div>
+            </div>
+            <div class="col">
+              <div class="list-item">Custom models for enterprise</div>
+              <div class="list-item">Safety & compliance modules</div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: '13',
+        content: `
+          <div class="label">NARRATIVE</div>
+          <div class="headline">THE EMBODIED <span class="white">ERA</span></div>
+          <div id="narrative-text" class="text" style="min-height:80px;">
+            Robotics adoption will stall without emotional and relational intelligence.
+          </div>
+          <div class="divider"></div>
+          <div class="text">
+            EngageSense becomes the standard layer that allows robots to coexist with humans by understanding emotional context, maintaining relational memory, and adapting behavior safely.
+          </div>
+          <div class="text pink" style="margin-top:20px;">This is a foundational system.</div>
+          <div style="margin-top:20px;">
+            <span style="font-size:14px; opacity:0.7;">✨ ADAPT PITCH FOR:</span>
+            <button class="btn sparkle" onclick="remixNarrative('VC')">INVESTORS</button>
+            <button class="btn sparkle" onclick="remixNarrative('Engineer')">ENGINEERS</button>
+          </div>
+        `
+      },
+      {
+        id: '14',
+        content: `
+          <div class="label">THE ASK</div>
+          <div class="headline">SEED ROUND</div>
+          <div class="cols">
+            <div class="col">
+              <div class="col-head">RAISE</div>
+              <div class="headline pink">$2.5M</div>
+            </div>
+            <div class="col">
+              <div class="col-head">SUMMARY</div>
+              <div class="list-item"><span class="key">Problem:</span> Robots lack emotion.</div>
+              <div class="list-item"><span class="key">Solution:</span> Relational Engine.</div>
+              <div class="list-item"><span class="key">Customers:</span> Robotics OEMs.</div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: '15',
+        class: 'center-content',
+        content: `
+          <div style="width:100%; max-width:600px; margin:0 auto;">
+            <div class="headline">FINANCIAL <span class="pink">MODEL</span></div>
+            <div class="cols" style="text-align:left; margin-bottom:20px;">
+              <div class="col">
+                <div class="col-head">USE OF FUNDS</div>
+                <div class="list-item">60% Engineering</div>
+                <div class="list-item">20% Data & Compute</div>
+                <div class="list-item">10% Integration</div>
+              </div>
+              <div class="col">
+                <div class="col-head">PROJECTIONS</div>
+                <div class="list-item">Y1: Pilots</div>
+                <div class="list-item">Y2: $1–2M ARR</div>
+                <div class="list-item">Y3: $4–6M ARR</div>
+              </div>
+            </div>
+            
+            <div id="qa-interface" style="display:none; text-align:left;">
+               <div class="chat-box" id="chat-history">
+                 <div class="chat-msg ai">I am the Founder AI. Ask me about the $2.5M raise or our Unit Economics.</div>
+               </div>
+               <div class="sim-input-group">
+                 <input type="text" class="sim-input" id="qa-input" placeholder="e.g. What is your burn rate?">
+                 <button class="btn primary" onclick="runFounderQA()">ASK</button>
+               </div>
+               <button class="btn" onclick="toggleQA(false)" style="width:100%; margin-top:8px;">CLOSE CHAT</button>
+            </div>
 
-    <div>
-        <h3 class="job-title">מגוון תפקידי השקעות</h3>
-        <p class="company-dates">מיטב דש בית השקעות | 2010–2017</p>
-        <ul>
-            <li><span class="highlight">מנהל השקעות:</span> ניהול קופות גמל מפעליות, יישום מדיניות השקעה, ביצוע מסחר שוטף, ותיאום בקרות ועמידה ביעדי תשואה.</li>
-            <li><span class="highlight">ניהול לקוחות:</span> ניתוח תיקי לקוחות פרטיים, בניית פתרונות מותאמים אישית והשתתפות בוועדות השקעה.</li>
-            <li><span class="highlight">סוחר מניות:</span> מסחר יומיומי במגוון פלטפורמות מול ברוקרים, ביצוע עסקאות בזמן אמת, ניתוח תנודתיות השוק והעברת פקודות מסחר מדויקות.</li>
-        </ul>
-    </div>
-</div>
+            <div id="end-buttons">
+              <button class="btn primary" onclick="openModal()" style="font-size:24px; padding:16px 32px;">REQUEST DATA ROOM</button>
+              <button class="btn secondary" onclick="toggleQA(true)" style="font-size:24px; padding:16px 32px;">ASK FOUNDER AI</button>
+            </div>
+          </div>
+        `
+      }
+    ];
 
-<div class="section">
-    <h2 class="section-title">השכלה ורישיונות</h2>
-    <ul>
-        <li><strong>B.A. בכלכלה וניהול</strong> | המכללה האקדמית תל אביב-יפו</li>
-        <li><strong>רישיון לניהול תיקים</strong> | הרשות לניירות ערך</li>
-    </ul>
-</div>
+    let idx = 0;
+    const els = {
+      content: document.getElementById('content'),
+      cur: document.getElementById('cur'),
+      tot: document.getElementById('tot'),
+      prog: document.getElementById('prog'),
+      prev: document.getElementById('prev'),
+      next: document.getElementById('next'),
+      modal: document.getElementById('modal'),
+      frame: document.querySelector('.frame')
+    };
 
-<div class="section">
-    <h2 class="section-title">כישורים מקצועיים</h2>
-    <ul>
-        <li>ניתוח שווקים גלובליים והערכת שווי חברות.</li>
-        <li>בניית מודלים פיננסיים, עמידה ב-KPI והובלת תיקים.</li>
-        <li>ידע נרחב ברגולציה מוסדית, ניהול סיכונים וניהול תיקים מתקדם.</li>
-    </ul>
-</div>
+    els.tot.textContent = String(SLIDES.length).padStart(2, '0');
 
-<div class="section">
-    <h2 class="section-title">כישורים אישיים</h2>
-    <ul>
-        <li>יכולת ניתוח אסטרטגי וחשיבה ביקורתית.</li>
-        <li>דייקנות, עמידה בלחצים, וניהול משא ומתן אפקטיבי.</li>
-        <li>מיומנויות הצגה, תקשורת בין-אישית מצוינת, חתירה למגע ומנהיגות.</li>
-    </ul>
-</div>
+    function render() {
+      els.cur.textContent = String(idx + 1).padStart(2, '0');
+      els.prog.style.width = ((idx + 1) / SLIDES.length * 100) + '%';
+      els.prev.disabled = idx === 0;
+      els.next.innerHTML = idx === SLIDES.length - 1 ? 'RESTART ↻' : 'NEXT &gt;';
 
-<div class="section">
-    <h2 class="section-title">כלים טכנולוגיים</h2>
-    <ul>
-        <li>שליטה מלאה: Microsoft Office, כולל Excel ברמה מתקדמת.</li>
-        <li>מערכות מקצועיות: Bloomberg, דן-אל, מערכות מסחר בנקאיות.</li>
-    </ul>
-</div>
+      els.content.innerHTML = '';
+      els.content.className = ''; 
+      
+      if (SLIDES[idx].class) els.frame.classList.add(SLIDES[idx].class);
+      else els.frame.classList.remove('center-content');
 
-<div class="section">
-    <h2 class="section-title">שירות צבאי</h2>
-    <ul>
-        <li><strong>לוחם ומפקד:</strong> סיירת צנחנים.</li>
-        <li><strong>תפקידי מילואים:</strong> ביצוע מבצעים ייחודיים, תפקידי פיקוד וקבלת החלטות תחת לחץ.</li>
-    </ul>
-</div>
-```
+      setTimeout(() => {
+        els.content.innerHTML = SLIDES[idx].content;
+        els.content.classList.add('slide-enter');
+        
+        const writers = els.content.querySelectorAll('.typewriter');
+        writers.forEach(el => {
+          const t = el.getAttribute('data-text');
+          el.textContent = '';
+          el.classList.add('typewriter-cursor');
+          let i = 0;
+          const type = () => { if(i<t.length){ el.textContent+=t.charAt(i); i++; setTimeout(type,50); }};
+          type();
+        });
+      }, 50);
+    }
 
-</div>
+    async function callGemini(prompt, isJson) {
+      if (!apiKey) return getMock(prompt, isJson);
+      try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+        });
+        const d = await res.json();
+        return d.candidates[0].content.parts[0].text;
+      } catch(e) { return getMock(prompt, isJson); }
+    }
+
+    function getMock(p, isJson) {
+      const lp = p.toLowerCase();
+      if(isJson) {
+        if(lp.includes('close')) return MOCK_RESPONSES.sim_close;
+        return MOCK_RESPONSES.sim_happy;
+      }
+      // Vision Remix Mock
+      if(lp.includes('vision statement')) return MOCK_RESPONSES.vision_remix;
+      // Narrative Remix Mock
+      if(lp.includes('pitch narrative')) {
+        if(lp.includes('vc')) return MOCK_RESPONSES.narrative_vc;
+        if(lp.includes('engineer')) return MOCK_RESPONSES.narrative_eng;
+      }
+      
+      if(lp.includes('financ') || lp.includes('burn')) return MOCK_RESPONSES.financial;
+      if(lp.includes('model')) return MOCK_RESPONSES.model;
+      if(lp.includes('tech')) return MOCK_RESPONSES.tech;
+      return MOCK_RESPONSES.default;
+    }
+
+    async function runKernelSim() {
+      const inp = document.getElementById('sim-input').value;
+      if(!inp) return;
+      document.getElementById('kernel-box').style.boxShadow = "0 0 50px var(--pink)";
+      const res = await callGemini("Analyze robot interaction (return JSON {phys, emot, action}): " + inp, true);
+      try {
+        const d = JSON.parse(res.match(/\{[\s\S]*\}/)[0]);
+        document.getElementById('robot-box').innerHTML = `ACTION: ${d.action} <span style="font-size:14px; color:#fff">(${d.phys}, ${d.emot})</span>`;
+      } catch(e) { document.getElementById('robot-box').innerText = "SAFETY HALT"; }
+    }
+
+    async function runFounderQA() {
+      const inp = document.getElementById('qa-input').value;
+      if(!inp) return;
+      const hist = document.getElementById('chat-history');
+      hist.innerHTML += `<div class="chat-msg user">${inp}</div>`;
+      document.getElementById('qa-input').value = '';
+      const res = await callGemini("Answer investor question as EngageSense Founder based on $2.5M Seed deck: " + inp, false);
+      hist.innerHTML += `<div class="chat-msg ai">${res}</div>`;
+      hist.scrollTop = hist.scrollHeight;
+    }
+
+    async function remixVision() {
+      const el = document.getElementById('hero-vision');
+      el.style.opacity = 0.5;
+      el.innerText = "Generating new vision...";
+      const res = await callGemini("Generate a futuristic, 5-word vision statement for a robotic emotional intelligence company. Cyberpunk style.", false);
+      el.innerText = res;
+      el.style.opacity = 1;
+    }
+
+    async function remixNarrative(persona) {
+      const el = document.getElementById('narrative-text');
+      el.style.opacity = 0.5;
+      el.innerText = "Rewriting for " + persona + "...";
+      const res = await callGemini(`Rewrite this pitch narrative for a ${persona}: 'Robotics adoption will stall without emotional intelligence.' Keep it punchy, under 40 words.`, false);
+      el.innerText = res;
+      el.style.opacity = 1;
+    }
+
+    function toggleQA(show) {
+      document.getElementById('qa-interface').style.display = show ? 'block' : 'none';
+      document.getElementById('end-buttons').style.display = show ? 'none' : 'flex';
+    }
+
+    els.next.onclick = () => { idx = idx < SLIDES.length-1 ? idx+1 : 0; render(); };
+    els.prev.onclick = () => { if(idx>0) idx--; render(); };
+    
+    document.addEventListener('keydown', e => {
+      if(document.querySelector('.modal.open') || document.activeElement.tagName==='INPUT') return;
+      if(e.key==='ArrowRight' || e.code==='Space') els.next.click();
+      if(e.key==='ArrowLeft') els.prev.click();
+    });
+    
+    window.openModal = () => els.modal.classList.add('open');
+    document.getElementById('closeModal').onclick = () => els.modal.classList.remove('open');
+    document.getElementById('contactForm').onsubmit = (e) => {
+      e.preventDefault();
+      els.modal.classList.remove('open');
+      alert("Access Request Sent. Check email for Data Room link.");
+    };
+
+    render();
+  </script>
 </body>
 </html>
